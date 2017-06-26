@@ -1,0 +1,15 @@
+import Ember from "ember";
+import pagedArray from 'ember-cli-pagination/computed/paged-array';
+
+export default Ember.Controller.extend({
+  page: 1,
+  perPage: 3,
+
+  queryParams: ["page", "perPage"],
+
+  pagedContent: pagedArray('content', {
+    page: Ember.computed.alias("parent.page"),
+    perPage: Ember.computed.alias("parent.perPage"),
+  }),
+  totalPages: Ember.computed.oneWay("pagedContent.totalPages"),
+});
